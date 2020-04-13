@@ -5,6 +5,9 @@
   box-shadow: 0 2px 2px #cccccc;
   width: 200px;
   height: auto;
-
+  word-break: break-word;
   padding: 20px;
+  h1 {
+    font-size: 30px;
+  }
 }
