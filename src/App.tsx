@@ -1,19 +1,57 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.scss';
-import { setupMaster } from 'cluster';
+import React, { Component } from "react";
+import PersonR from "./PersonR";
+//import * as request from "request";
+import axios from "axios";
+import Person from "./PersonEntity";
+//import Person from "./PersonEntity";
 
-class App extends Component{
-  sum(a:number, b:number){
-    return a+b;
+export default class App extends Component {
+  state = {
+    data: [],
+    loading: true,
+  };
+
+  // getSnapshotBeforeUpdate() {
+  //   console.log("getSnapshotBeforeUpdate");
+  // }
+
+  componentDidMount() {
+    console.log("componentDidMount");
+    axios.get(`https://jsonplaceholder.typicode.com/users`).then((response) => {
+      //console.log(response.data);
+      this.setState({ data: response.data, loading: false });
+    });
   }
-  render(){
-    return (
-      <div className="App">
-        <h1>hello</h1>
-      </div>
-    );
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+
+  // componentDidUpdate() {
+  //   console.log("componentDidUpdate");
+  // }
+
+  render() {
+    if (this.state.loading) {
+      return "Loading...";
+    } else {
+      let custs: Array<Person> = this.state.data;
+      console.log("render");
+      let listItems = custs.map((post, index) => (
+        <PersonR key={index} name={post.name} id={post.id} />
+      ));
+      return <React.Fragment>{listItems}</React.Fragment>;
+    }
   }
 }
 
-export default App;
+// const posts = [
+//   { id: 1, title: "avinash", age: "29", completed: true },
+//   { id: 2, title: "amit", age: "29", completed: true },
+//   { id: 3, title: "umesh", age: "29", completed: true },
+//   { id: 4, title: "pradeep", age: "29", completed: true },
+//   { id: 5, title: "pankaj", age: "29", completed: true },
+//   { id: 6, title: "anil", age: "29", completed: true },
+//   { id: 7, title: "ravi", age: "29", completed: true },
+//   { id: 8, title: "sunil", age: "29", completed: true },
+// ];
