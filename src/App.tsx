@@ -3,8 +3,6 @@ import PersonR from "./PersonR";
 //import * as request from "request";
 import axios from "axios";
 import Person from "./PersonEntity";
-import "./footer.scss";
-import "./header.scss";
 
 export default class App extends Component {
   state = {
